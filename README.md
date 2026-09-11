@@ -37,6 +37,18 @@ Below are the contents of the vector registers after running our vector matrix m
 
 ### How to run
 Make sure Qt creator is installed locally. Qt can be downloaded via [the official site](https://www.qt.io/development/download)
+Download this repo from github 
+```bash
+git clone https://github.com/liyu-hz168/DNA-v32.git
+```
+Open up the project in Qt creator, and build the project by clicking on this button <img height="20" alt="build button" src="https://github.com/user-attachments/assets/66786695-1dd2-430f-8a07-62ba6e578580" />
+
+In the IDE, click on Projects on the left side bar, then go to run settings, make sure the working directory of the project is set to the root directory 
+If the project directory is ever changed, before running it, make sure to delete the old build folder and rebuilt 
+
+## More Details About the ISA (It's quite a lot of tables... Browse if you desire)
+<details>
+</details>
 
 
 
