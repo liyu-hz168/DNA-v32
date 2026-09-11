@@ -59,9 +59,9 @@ Some basic info before more info dump. The word size is 32 bits, and instruction
 <details>
 <summary>Addressing Modes</summary>
 1. PC-relative addressing is supported for some branch instructions only.
-  Immediate addressing is supported for ALU instructions, except NOT. It is also supported for integer loads.
-3Register-direct addressing is supported for ALU instructions, except NOT.
-Register-indirect addressing is supported for the BX instruction. It is also supported for loads/stores.4Register base+index addressing is supported for loads/stores only.
+2. Immediate addressing is supported for ALU instructions, except NOT. It is also supported for integer loads.
+3. Register-direct addressing is supported for ALU instructions, except NOT.Register-indirect addressing is supported for the BX instruction. It is also supported for loads/stores.
+4. Register base+index addressing is supported for loads/stores only.
 </details>
 
 <details>
