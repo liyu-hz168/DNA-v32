@@ -3,7 +3,7 @@ This is a custom 32-bit instruction set architecture (ISA) simulator inspired by
 
 Several benchmarks were ran such as exchange sort and matrix multiply, with different pipeline and cache settings. Notably, vectorized matrix multiplication benchmarks demonstrate up to ~2.5x cycle reduction compared to scalar implementations when vector instructions are enabled.
 
-This was developed collaboratively with _(REMEMBER TO CREDIT NEHA)_
+This was developed collaboratively with [Neha Aryasomayajula](https://github.com/nehaka02)
 
 ## Demo / Screenshots 
 _Put some videos here_
