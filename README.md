@@ -97,6 +97,124 @@ register. The latter two registers are inspired by ARM’s CPSR register.
 Note, in addition we have sixteen general-purpose 4-word vector registers. The registers are named Q0-Q15.
 </details>
 
+<details>
+  ## Instruction Set
+
+All instructions are 32 bits wide. The first 2 bits indicate the type code, dividing instructions into three categories.
+
+### Data Processing (type code: `00`)
+
+| Instruction | Assembly | Opcode | Function |
+|-------------|----------|--------|----------|
+| Integer Addition | `ADD dest, src1, src2` | 00000 (0) | dest = src1 + src2 |
+| Integer Subtraction | `SUB dest, src1, src2` | 00001 (1) | dest = src1 - src2 |
+| Integer Division | `DIV dest, src1, src2` | 00010 (2) | dest = src1 / src2. If src2 = 0, dest = 0xFFFFFFFF (RISC-V convention) |
+| Integer Multiplication | `MUL dest, src1, src2` | 00011 (3) | dest = src1 * src2. Keeps lower 32 bits on overflow, sets V flag |
+| Integer Modulus | `MOD dest, src1, src2` | 00100 (4) | dest = src1 % src2. If src2 = 0, dest = src1 (RISC-V convention) |
+| Arithmetic Right Shift | `ASR dest, src1, src2` | 00101 (5) | dest = src1 >> src2 |
+| Arithmetic Left Shift | `ASL dest, src1, src2` | 00110 (6) | dest = src1 << src2 |
+| Logical Right Shift | `LSR dest, src1, src2` | 00111 (7) | dest = src1 >> src2 |
+| Logical Left Shift | `LSL dest, src1, src2` | 01000 (8) | dest = src1 << src2 |
+| Bitwise AND | `AND dest, src1, src2` | 01001 (9) | dest = src1 & src2 |
+| Bitwise OR | `OR dest, src1, src2` | 01010 (10) | dest = src1 \| src2 |
+| Bitwise XOR | `XOR dest, src1, src2` | 01011 (11) | dest = src1 ^ src2 |
+| Vector Addition | `VADD length(#), dest, src1, src2` | 01100 (12) | dest = src1 + src2 (element-wise). Sets V on overflow |
+| Vector Subtraction | `VSUB length(#), dest, src1, src2` | 01101 (13) | dest = src1 - src2 (element-wise). Sets V on underflow |
+| Vector Multiplication | `VMUL length(#), dest, src1, src2` | 01110 (14) | dest = src1 * src2 (element-wise). Keeps lower 32 bits, sets V on overflow |
+| Immediate Addition | `ADDI dest, src1, #` | 01111 (15) | dest = src1 + # |
+| Immediate Subtraction | `SUBI dest, src1, #` | 10000 (16) | dest = src1 - # |
+| Immediate Multiplication | `MULI dest, src1, #` | 10001 (17) | dest = src1 * #. Keeps lower 32 bits, sets V on overflow |
+| Immediate Arith. Right Shift | `ASRI dest, src1, #` | 10010 (18) | dest = src1 >> # |
+| Immediate Arith. Left Shift | `ASLI dest, src1, #` | 10011 (19) | dest = src1 << # |
+| Immediate Bitwise AND | `ANDI dest, src1, #` | 10100 (20) | dest = src1 & # |
+| Immediate Bitwise OR | `ORI dest, src1, #` | 10101 (21) | dest = src1 \| # |
+| Immediate Bitwise XOR | `XORI dest, src1, #` | 10110 (22) | dest = src1 ^ # |
+| Immediate Division | `DIVI dest, src1, #` | 10111 (23) | dest = src1 / #. If # = 0, dest = 0xFFFFFFFF |
+| Immediate Modulus | `MODI dest, src1, #` | 11000 (24) | dest = src1 % #. If # = 0, dest = src1 |
+| Immediate Logical Right Shift | `LSRI dest, src1, #` | 11001 (25) | dest = src1 >> # |
+| Immediate Logical Left Shift | `LSLI dest, src1, #` | 11010 (26) | dest = src1 << # |
+| Compare | `CMP src1, src2` | 11011 (27) | src1 - src2 (background). Sets N, Z, V flags |
+| Vector Equivalence | `VEQ length(#), src1, src2` | 11100 (28) | src1 - src2 (background). Sets Z if result is zero vector |
+| Vector Sum | `VSUM length(#), dest, src1` | 11101 (29) | dest = sum of all elements in src1 |
+| Compare Immediate | `CMPI src1, #` | 11110 (30) | src1 - # (background). Sets N, Z, V flags |
+
+---
+
+### Branch Operations (type code: `01`)
+
+| Instruction | Assembly | Opcode | Function |
+|-------------|----------|--------|----------|
+| Unconditional Branch | `B offset` | 0000 | Always branch to PC-relative offset |
+| Branch if Equal | `BEQ offset` | 0001 | Branch if Z = 1 |
+| Branch if Not Equal | `BNE offset` | 0010 | Branch if Z = 0 |
+| Branch if Less Than | `BLT offset` | 0011 | Branch if N = 1 |
+| Branch if Less or Equal | `BLE offset` | 0100 | Branch if N = 1 or Z = 1 |
+| Branch if Greater Than | `BGT offset` | 0101 | Branch if N = 0 |
+| Branch if Greater or Equal | `BGE offset` | 0110 | Branch if N = 0 or Z = 1 |
+| Branch with Link | `BL offset` | 0111 | Store return address in LR, branch to subroutine |
+| Branch and Exchange | `BX src` | 1000 | Branch to address in src (register-indirect) |
+
+---
+
+### Miscellaneous (type code: `10`)
+
+| Instruction | Assembly | Opcode | Function |
+|-------------|----------|--------|----------|
+| Bitwise NOT | `NOT dest, src` | 0000 | dest = !src |
+| Load | `LD dest, src` | 0001 | dest = MEM[src] |
+| Store | `STR dest, src` | 0010 | MEM[dest] = src |
+| Vector Load | `VLD dest, src` | 0011 | dest = MEM[src] (4-word aligned) |
+| Vector Store | `VSTR dest, src` | 0100 | MEM[dest] = src (4-word aligned) |
+| Halt | `HALT` | 0101 | Pause program execution |
+| NOP | — | — | Any invalid instruction is treated as NOP |
+| Load Base+Offset | `LDB dest, base, offset` | 0110 | dest = MEM[base + offset] |
+| Store Base+Offset | `STRB src, base, offset` | 0111 | MEM[base + offset] = src |
+| Load Immediate | `LDI dest, #` | 1000 | dest = MEM[#] |
+
+> **Note:** VLD and VSTR enforce 4-word alignment by zeroing the lowest 2 bits of the address. Be careful with unaligned addresses as this may cause unintended memory overwrites.
+
+---
+
+### Instruction Encoding
+
+**Scalar (except CMP and immediate shifts)**
+| Type code | Opcode | dest | src1 | src2 | Leftover |
+|-----------|--------|------|------|------|----------|
+| 2 bits | 5 bits | 4 bits | 4 bits | 4 bits | 13 bits |
+
+**CMP**
+| Type code | Opcode | src1 | src2 | Leftover |
+|-----------|--------|------|------|----------|
+| 2 bits | 5 bits | 4 bits | 4 bits | 17 bits |
+
+**Immediate (except CMPI)**
+| Type code | Opcode | dest | src1 | Immediate |
+|-----------|--------|------|------|-----------|
+| 2 bits | 5 bits | 4 bits | 4 bits | 17 bits |
+
+**Vector (except VEQ)**
+| Type code | Opcode | Vector length | dest | src1 | src2 | Leftover |
+|-----------|--------|---------------|------|------|------|----------|
+| 2 bits | 5 bits | 2 bits | 4 bits | 4 bits | 4 bits | 11 bits |
+
+**VEQ**
+| Type code | Opcode | Vector length | src1 | src2 | Leftover |
+|-----------|--------|---------------|------|------|----------|
+| 2 bits | 5 bits | 2 bits | 4 bits | 4 bits | 15 bits |
+
+**VSUM**
+| Type code | Opcode | Vector length | src1 | dest | Leftover |
+|-----------|--------|---------------|------|------|----------|
+| 2 bits | 5 bits | 2 bits | 4 bits | 4 bits | 15 bits |
+
+**CMPI**
+| Type code | Opcode | src1 | Immediate |
+|-----------|--------|------|-----------|
+| 2 bits | 5 bits | 4 bits | 21 bits |
+
+> **Note:** The vector length field specifies the number of active elements (1–4) in vector operations.
+</details>
+
 
 
 
