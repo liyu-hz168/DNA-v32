@@ -19,6 +19,7 @@ Besides matrix multiply, some exchange sort benchmarks were also ran, below are 
 <img width="820" height="532" alt="Screenshot 2026-09-10 at 10 14 12 PM" src="https://github.com/user-attachments/assets/d6e93b8b-14a6-4299-aed7-09b7d51cac12" />
 
 Below are the contents of the vector registers after running our vector matrix multiplication and scalar matrix multiplication benchmarks respectively
+
 <img width="821" height="533" alt="Screenshot 2026-09-10 at 10 16 32 PM" src="https://github.com/user-attachments/assets/dcea4c9e-e0b6-4636-b649-1d88018da62f" />
 <img width="820" height="531" alt="Screenshot 2026-09-10 at 10 16 55 PM" src="https://github.com/user-attachments/assets/c4aaef43-8936-4430-a792-a7070a4ab177" />
 
