@@ -58,9 +58,10 @@ To use this project, first load an assembly file via the Load File button in the
 Some basic info before more info dump. The word size is 32 bits, and instructions are 32 bits; hence, the instruction fetch paradigm is single instruction per word. The architecture supports 32-bit signed integers and 4-word vectors only. We employed Princeton-style memory organization. Memory is word addressable. The address range is from 0x00000000 to 0xFFFFFFFF, providing 2³² addressable words. In addition, we have a unified, direct-mapped, write-through, no-write allocate cache. Our cache is 64 words; that is 16 lines, each containing 4 words of data.
 <details>
 <summary>Addressing Modes</summary>
+  
 1. PC-relative addressing is supported for some branch instructions only.
 2. Immediate addressing is supported for ALU instructions, except NOT. It is also supported for integer loads.
-3. Register-direct addressing is supported for ALU instructions, except NOT.Register-indirect addressing is supported for the BX instruction. It is also supported for loads/stores.
+3. Register-direct addressing is supported for ALU instructions, except NOT. Register-indirect addressing is supported for the BX instruction. It is also supported for loads/stores.
 4. Register base+index addressing is supported for loads/stores only.
 </details>
 
