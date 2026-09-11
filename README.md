@@ -28,6 +28,15 @@ Below are the contents of the vector registers after running our vector matrix m
 </details>
 
 ## Build & Run Instructions 
+### Requirements
+- CMake 3.16+
+- Qt 5 or Qt 6 (Core and Widgets modules)
+- C++17 compatible compiler
+- GTest (for unit tests)
+- Python 3.x (for the assembler)
+
+### How to run
+Make sure Qt creator is installed locally. Qt can be downloaded via [the official site](https://www.qt.io/development/download)
 
 
 
