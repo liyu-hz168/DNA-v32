@@ -138,6 +138,7 @@ All instructions are 32 bits wide. The first 2 bits indicate the type code, divi
 | Compare Immediate | `CMPI src1, #` | 11110 (30) | src1 - # (background). Sets N, Z, V flags |
 
 **Instruction Structure**
+
 **Scalar (except CMP and immediate shifts)**
 | Type code | Opcode | dest | src1 | src2 | Leftover |
 |-----------|--------|------|------|------|----------|
