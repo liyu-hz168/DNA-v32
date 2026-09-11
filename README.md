@@ -8,8 +8,9 @@ This was developed collaboratively with [Neha Aryasomayajula](https://github.com
 ## Demo / Screenshots 
 _Put some videos here_
 
-Below are some demo screenshots
+
 <details>
+<summary>Below are some demo screenshots</summary>
 Below is a screenshot of running a simple program (4x4 Matrix Multiply) to completion
 <img width="831" height="540" alt="Screenshot 2026-09-10 at 9 41 53 PM" src="https://github.com/user-attachments/assets/57fe2055-49f5-48f3-ac2b-748a61d78a47" />
 
@@ -55,6 +56,16 @@ To use this project, first load an assembly file via the Load File button in the
 
 ## ISA Specification (Be warned... Excessive tables ahead. Browse at your own risk)
 Some basic info before all the other info dump,  The word size is 32 bits, and instructions are 32 bits; hence, the instruction fetch paradigm is single instruction per word. The architecture supports 32-bit signed integers and 4-word vectors only. We employed Princeton-style memory organization. Memory is word addressable. The address range is from 0x00000000 to 0xFFFFFFFF, providing 2³² addressable words. In addition, we have a unified, direct-mapped, write-through, no-write allocate cache. Our cache is 64 words; that is 16 lines, each containing 4 words of data.
+<details>
+<summary>Addressing Modes</summary>
+1. PC-relative addressing is supported for some branch instructions only.
+2. Immediate addressing is supported for ALU instructions, except NOT. It is also supported
+for integer loads.
+3. Register-direct addressing is supported for ALU instructions, except NOT.
+Register-indirect addressing is supported for the BX instruction. It is also supported for
+loads/stores.
+4. Register base+index addressing is supported for loads/stores only.
+</details>
 
 <details>
 <summary>Registers</summary>
