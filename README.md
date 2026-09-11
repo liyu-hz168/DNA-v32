@@ -8,6 +8,8 @@ This was developed collaboratively with _(REMEMBER TO CREDIT NEHA)_
 ## Demo / Screenshots 
 _Put some videos here_
 
+Below are some demo screenshots
+<details>
 Below is a screenshot of running a simple program (4x4 Matrix Multiply) to completion
 <img width="831" height="540" alt="Screenshot 2026-09-10 at 9 41 53 PM" src="https://github.com/user-attachments/assets/57fe2055-49f5-48f3-ac2b-748a61d78a47" />
 
@@ -22,6 +24,8 @@ Below are the contents of the vector registers after running our vector matrix m
 
 <img width="821" height="533" alt="Screenshot 2026-09-10 at 10 16 32 PM" src="https://github.com/user-attachments/assets/dcea4c9e-e0b6-4636-b649-1d88018da62f" />
 <img width="820" height="531" alt="Screenshot 2026-09-10 at 10 16 55 PM" src="https://github.com/user-attachments/assets/c4aaef43-8936-4430-a792-a7070a4ab177" />
+
+</details>
 
 ## Build & Run Instructions 
 
