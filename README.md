@@ -137,7 +137,7 @@ All instructions are 32 bits wide. The first 2 bits indicate the type code, divi
 | Vector Sum | `VSUM length(#), dest, src1` | 11101 (29) | dest = sum of all elements in src1 |
 | Compare Immediate | `CMPI src1, #` | 11110 (30) | src1 - # (background). Sets N, Z, V flags |
 
-**Instruction Structure**
+**Instruction Structures**
 
 **Scalar (except CMP and immediate shifts)**
 | Type code | Opcode | dest | src1 | src2 | Leftover |
@@ -191,6 +191,17 @@ All instructions are 32 bits wide. The first 2 bits indicate the type code, divi
 | Branch with Link | `BL offset` | 0111 | Store return address in LR, branch to subroutine |
 | Branch and Exchange | `BX src` | 1000 | Branch to address in src (register-indirect) |
 
+**Instruction Structure(except BX)**
+| Type code | Opcode | Offset |
+|-----------|--------|--------|
+| 2 bits | 4 bits | 26 bits |
+
+**Instruction Structure for BX**
+| Type code | Opcode | src | Leftover |
+|-----------|--------|-----|----------|
+| 2 bits | 4 bits | 4 bits | 22 bits |
+
+> **Note:** BX is a register-indirect instruction, not PC-relative. It is used to return from subroutines.
 ---
 
 ### Miscellaneous (type code: `10`)
