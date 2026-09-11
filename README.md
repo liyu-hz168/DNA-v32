@@ -55,7 +55,7 @@ To use this project, first load an assembly file via the Load File button in the
 
 
 ## ISA Specification (Be warned... Excessive tables ahead. Browse at your own risk)
-Some basic info before all the other info dump,  The word size is 32 bits, and instructions are 32 bits; hence, the instruction fetch paradigm is single instruction per word. The architecture supports 32-bit signed integers and 4-word vectors only. We employed Princeton-style memory organization. Memory is word addressable. The address range is from 0x00000000 to 0xFFFFFFFF, providing 2³² addressable words. In addition, we have a unified, direct-mapped, write-through, no-write allocate cache. Our cache is 64 words; that is 16 lines, each containing 4 words of data.
+Some basic info before more info dump. The word size is 32 bits, and instructions are 32 bits; hence, the instruction fetch paradigm is single instruction per word. The architecture supports 32-bit signed integers and 4-word vectors only. We employed Princeton-style memory organization. Memory is word addressable. The address range is from 0x00000000 to 0xFFFFFFFF, providing 2³² addressable words. In addition, we have a unified, direct-mapped, write-through, no-write allocate cache. Our cache is 64 words; that is 16 lines, each containing 4 words of data.
 <details>
 <summary>Addressing Modes</summary>
 1. PC-relative addressing is supported for some branch instructions only.
@@ -69,6 +69,34 @@ loads/stores.
 
 <details>
 <summary>Registers</summary>
+Our ISA has a total of 32 registers. 16 of those registers are general-purpose vector registers. 12
+are general-purpose integer registers. The remaining 4 registers are special-purpose integer
+registers. The r12 register is the link register, which stores the return address of a subroutine
+when it is called. The r13 register contains the program counter, which points to the current
+instruction to fetch. It is updated automatically and cannot be modified by the program. The CR
+register is the integer condition code register. The VCR register is the vector condition code
+register. The latter two registers are inspired by ARM’s CPSR register.
+
+| Register | Alias | Purpose |
+|----------|-------|---------|
+| r0  | —   | General Purpose |
+| r1  | —   | General Purpose |
+| r2  | —   | General Purpose |
+| r3  | —   | General Purpose |
+| r4  | —   | General Purpose |
+| r5  | —   | General Purpose |
+| r6  | —   | General Purpose |
+| r7  | —   | General Purpose |
+| r8  | —   | General Purpose |
+| r9  | —   | General Purpose |
+| r10 | —   | General Purpose |
+| r11 | —   | General Purpose |
+| r12 | LR  | Link Register |
+| r13 | PC  | Program Counter |
+| r14 | CR  | Condition Register |
+| r15 | VCR | Vector Condition Register |
+
+Note, in addition we have sixteen general-purpose 4-word vector registers. The registers are named Q0-Q15.
 </details>
 
 
