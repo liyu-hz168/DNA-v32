@@ -98,8 +98,7 @@ Note, in addition we have sixteen general-purpose 4-word vector registers. The r
 </details>
 
 <details>
-  ## Instruction Set
-
+<summary>Instruction Details & Structure</summary>
 All instructions are 32 bits wide. The first 2 bits indicate the type code, dividing instructions into three categories.
 
 ### Data Processing (type code: `00`)
@@ -138,44 +137,6 @@ All instructions are 32 bits wide. The first 2 bits indicate the type code, divi
 | Vector Sum | `VSUM length(#), dest, src1` | 11101 (29) | dest = sum of all elements in src1 |
 | Compare Immediate | `CMPI src1, #` | 11110 (30) | src1 - # (background). Sets N, Z, V flags |
 
----
-
-### Branch Operations (type code: `01`)
-
-| Instruction | Assembly | Opcode | Function |
-|-------------|----------|--------|----------|
-| Unconditional Branch | `B offset` | 0000 | Always branch to PC-relative offset |
-| Branch if Equal | `BEQ offset` | 0001 | Branch if Z = 1 |
-| Branch if Not Equal | `BNE offset` | 0010 | Branch if Z = 0 |
-| Branch if Less Than | `BLT offset` | 0011 | Branch if N = 1 |
-| Branch if Less or Equal | `BLE offset` | 0100 | Branch if N = 1 or Z = 1 |
-| Branch if Greater Than | `BGT offset` | 0101 | Branch if N = 0 |
-| Branch if Greater or Equal | `BGE offset` | 0110 | Branch if N = 0 or Z = 1 |
-| Branch with Link | `BL offset` | 0111 | Store return address in LR, branch to subroutine |
-| Branch and Exchange | `BX src` | 1000 | Branch to address in src (register-indirect) |
-
----
-
-### Miscellaneous (type code: `10`)
-
-| Instruction | Assembly | Opcode | Function |
-|-------------|----------|--------|----------|
-| Bitwise NOT | `NOT dest, src` | 0000 | dest = !src |
-| Load | `LD dest, src` | 0001 | dest = MEM[src] |
-| Store | `STR dest, src` | 0010 | MEM[dest] = src |
-| Vector Load | `VLD dest, src` | 0011 | dest = MEM[src] (4-word aligned) |
-| Vector Store | `VSTR dest, src` | 0100 | MEM[dest] = src (4-word aligned) |
-| Halt | `HALT` | 0101 | Pause program execution |
-| NOP | — | — | Any invalid instruction is treated as NOP |
-| Load Base+Offset | `LDB dest, base, offset` | 0110 | dest = MEM[base + offset] |
-| Store Base+Offset | `STRB src, base, offset` | 0111 | MEM[base + offset] = src |
-| Load Immediate | `LDI dest, #` | 1000 | dest = MEM[#] |
-
-> **Note:** VLD and VSTR enforce 4-word alignment by zeroing the lowest 2 bits of the address. Be careful with unaligned addresses as this may cause unintended memory overwrites.
-
----
-
-### Instruction Encoding
 
 **Scalar (except CMP and immediate shifts)**
 | Type code | Opcode | dest | src1 | src2 | Leftover |
@@ -214,6 +175,44 @@ All instructions are 32 bits wide. The first 2 bits indicate the type code, divi
 
 > **Note:** The vector length field specifies the number of active elements (1–4) in vector operations.
 </details>
+---
+
+### Branch Operations (type code: `01`)
+
+| Instruction | Assembly | Opcode | Function |
+|-------------|----------|--------|----------|
+| Unconditional Branch | `B offset` | 0000 | Always branch to PC-relative offset |
+| Branch if Equal | `BEQ offset` | 0001 | Branch if Z = 1 |
+| Branch if Not Equal | `BNE offset` | 0010 | Branch if Z = 0 |
+| Branch if Less Than | `BLT offset` | 0011 | Branch if N = 1 |
+| Branch if Less or Equal | `BLE offset` | 0100 | Branch if N = 1 or Z = 1 |
+| Branch if Greater Than | `BGT offset` | 0101 | Branch if N = 0 |
+| Branch if Greater or Equal | `BGE offset` | 0110 | Branch if N = 0 or Z = 1 |
+| Branch with Link | `BL offset` | 0111 | Store return address in LR, branch to subroutine |
+| Branch and Exchange | `BX src` | 1000 | Branch to address in src (register-indirect) |
+
+---
+
+### Miscellaneous (type code: `10`)
+
+| Instruction | Assembly | Opcode | Function |
+|-------------|----------|--------|----------|
+| Bitwise NOT | `NOT dest, src` | 0000 | dest = !src |
+| Load | `LD dest, src` | 0001 | dest = MEM[src] |
+| Store | `STR dest, src` | 0010 | MEM[dest] = src |
+| Vector Load | `VLD dest, src` | 0011 | dest = MEM[src] (4-word aligned) |
+| Vector Store | `VSTR dest, src` | 0100 | MEM[dest] = src (4-word aligned) |
+| Halt | `HALT` | 0101 | Pause program execution |
+| NOP | — | — | Any invalid instruction is treated as NOP |
+| Load Base+Offset | `LDB dest, base, offset` | 0110 | dest = MEM[base + offset] |
+| Store Base+Offset | `STRB src, base, offset` | 0111 | MEM[base + offset] = src |
+| Load Immediate | `LDI dest, #` | 1000 | dest = MEM[#] |
+
+> **Note:** VLD and VSTR enforce 4-word alignment by zeroing the lowest 2 bits of the address. Be careful with unaligned addresses as this may cause unintended memory overwrites.
+
+---
+
+
 
 
 
