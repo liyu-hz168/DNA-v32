@@ -137,7 +137,7 @@ All instructions are 32 bits wide. The first 2 bits indicate the type code, divi
 | Vector Sum | `VSUM length(#), dest, src1` | 11101 (29) | dest = sum of all elements in src1 |
 | Compare Immediate | `CMPI src1, #` | 11110 (30) | src1 - # (background). Sets N, Z, V flags |
 
-
+**Instruction Structure**
 **Scalar (except CMP and immediate shifts)**
 | Type code | Opcode | dest | src1 | src2 | Leftover |
 |-----------|--------|------|------|------|----------|
@@ -174,7 +174,6 @@ All instructions are 32 bits wide. The first 2 bits indicate the type code, divi
 | 2 bits | 5 bits | 4 bits | 21 bits |
 
 > **Note:** The vector length field specifies the number of active elements (1–4) in vector operations.
-</details>
 ---
 
 ### Branch Operations (type code: `01`)
@@ -211,7 +210,7 @@ All instructions are 32 bits wide. The first 2 bits indicate the type code, divi
 > **Note:** VLD and VSTR enforce 4-word alignment by zeroing the lowest 2 bits of the address. Be careful with unaligned addresses as this may cause unintended memory overwrites.
 
 ---
-
+</details>
 
 
 
